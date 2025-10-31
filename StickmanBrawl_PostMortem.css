@@ -1,0 +1,89 @@
+/* =========================
+   Root & Resets
+   ========================= */
+@charset "UTF-8";
+
+:root{
+  --font-sans: "Segoe UI";
+  --font-mono: "Consolas";
+  --fg: #1a1a1a;
+  --bg: #ffffff;
+  --border: rgba(0,0,0,.18);
+}
+
+html, body{
+  padding:0;
+  margin:0;
+  color: var(--fg);
+  background: var(--bg);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.55;
+  word-wrap: break-word;
+}
+
+/* A little breathing room for screen */
+body{
+  padding: 0 26px;
+}
+
+/* Links */
+a{ text-decoration: none; color: inherit; border-bottom: 1px solid rgba(0,0,0,.25); }
+a:hover{ text-decoration: none; border-bottom-color: rgba(0,0,0,.6); }
+
+/* Horizontal rules */
+hr{ border:0; height:2px; border-bottom:2px solid var(--border); margin: 20px 0; }
+
+/* Headings */
+h1, h2, h3{ font-weight: 600; line-height:1.25; margin: 1.2em 0 .6em; }
+h1{ font-size: 1.9rem; padding-bottom: .3em; border-bottom: 1px solid var(--border); }
+h2{ font-size: 1.45rem; }
+h3{ font-size: 1.15rem; }
+
+/* Paragraphs & lists */
+p{ margin: .6em 0; }
+ul, ol{ padding-left: 1.25em; margin: .4em 0 .8em; }
+li{ margin: .25em 0; }
+
+/* Code blocks */
+code{ 
+  font-family: var(--font-mono);
+  font-size: .95em;
+  color: #C9AE75;
+  background: rgba(0,0,0,.04);
+  padding: 0 .25em;
+  border-radius: 3px;
+}
+
+/* TOC styles */
+.toc{ border:1px solid var(--border); padding:12px 16px; border-radius:8px; margin:12px 0 24px 0; }
+.toc-title{ font-weight:700; margin-bottom:6px; }
+.toc-list{ margin:0; padding-left:18px; }
+.toc-list li{ margin:4px 0; }
+.toc a{ border-bottom: none; }
+.toc a:hover{ text-decoration: underline; }
+@media print{ .toc{ break-inside: avoid; } }
+
+/* Avoid breaks just after headings */
+h1, h2, h3{ break-after: avoid; }
+h2 + p, h3 + p, h2 + ul, h2 + ol{ break-before: avoid; }
+
+/* =========================
+   Print / Page Layout
+   ========================= */
+
+/* Page size & margins */
+@page{
+  size: letter;
+  margin: 18mm 16mm 20mm 16mm; /* top right bottom left */
+}
+
+/* Info list */
+.info-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0 0 1em 0;
+}
+.info-list li {
+  margin: 4px 0;
+}

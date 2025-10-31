@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Stickman Brawl — Post-mortem</title>
+
+	<link rel="stylesheet" href="StickmanBrawl_PostMortem.css" />
+	<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+
+<body>
+	<!-- Titre principal + méta -->
+	<h1>Stickman Brawl — Post-mortem</h1>
+	<p><strong>Auteur :</strong> Antonin Claudel<br>
+		<strong>Période :</strong> septembre → octobre 2025
+	</p>
+
+	<!-- Plan interactif -->
+	<nav class="toc" aria-label="Table des matières">
+		<div class="toc-title">Plan</div>
+		<ol class="toc-list">
+			<li><a href="#informations-generales">Informations générales</a></li>
+			<li><a href="#objectifs-initiaux">Objectifs initiaux</a></li>
+			<li><a href="#points-de-reussite">Points de réussite</a></li>
+			<li><a href="#problemes-rencontres">Problèmes rencontrés et résolutions</a></li>
+			<li><a href="#competences-acquises">Compétences acquises</a></li>
+			<li><a href="#perspectives-amelioration">Perspectives d’amélioration</a></li>
+			<li><a href="#bilan">Bilan</a></li>
+		</ol>
+	</nav>
+
+	<hr>
+
+	<h2 id="informations-generales">1. Informations générales</h2>
+	<ul class="info-list">
+		<li><strong>Titre du projet :</strong> <em>Stickman Brawl</em></li>
+		<li><strong>Nature du projet :</strong> jeu de combat local (2 joueurs) de type <em>Smash-like</em></li>
+		<li><strong>Moteur :</strong> Unreal Engine 5.6</li>
+		<li><strong>Technologies :</strong> intégralement développées en <strong>Blueprints</strong> (C++ seulement
+			exploré, puis écarté)</li>
+		<li><strong>Période de réalisation :</strong> du <strong>8 septembre 2025</strong> (prototype Zero-G) au
+			<strong>28 octobre 2025</strong>
+		</li>
+	</ul>
+
+	<h3 id="evolution-du-concept">Évolution du concept</h3>
+	<p>Le projet est né d’une première expérimentation, <em>Stickman Zero-G</em>, centrée sur la simulation physique et
+		la gravité nulle. Cette orientation, rapidement abandonnée pour des raisons de faisabilité et de rendement
+		pédagogique, a conduit à un pivot conceptuel vers un <em>Smash-like</em> exploitant pleinement les systèmes
+		internes du moteur (notamment <code>LaunchCharacter</code>, <code>ApplyDamage</code>, <code>Jump</code> et
+		<code>AddMovementInput</code>).
+	</p>
+	<p>Les principales décisions de cadrage ont consisté à :</p>
+	<ul>
+		<li>Substituer la <strong>caméra dynamique</strong> par une <strong>caméra latérale fixe</strong>, réduisant la
+			complexité d’intégration ;</li>
+		<li>Redéfinir la condition de <em>KO</em> : abandon du modèle d’éjection au profit d’une élimination à
+			<strong>santé nulle</strong>, formalisée dans la version 2.1 du One-Pager ;
+		</li>
+		<li>Restreindre le périmètre à un <strong>multijoueur local à deux joueurs fixes</strong>, l’ajout ou le retrait
+			dynamique via C++ (détection des manettes) ayant été jugé non prioritaire dans la contrainte temporelle.
+		</li>
+	</ul>
+
+	<hr>
+
+	<h2 id="objectifs-initiaux">2. Objectifs initiaux</h2>
+	<p>L’objectif principal consistait à produire, dans un cadre individuel, un <strong>prototype jouable et
+			stable</strong> démontrant une compréhension approfondie du moteur et un apprentissage concret, tout en
+		demeurant réalisable dans les délais impartis. Les intentions initiales portaient sur :</p>
+	<ul>
+		<li>L’expérimentation des <strong>mécaniques de combat rapproché</strong> ;</li>
+		<li>La mise en œuvre d’un <strong>multijoueur local robuste</strong>.</li>
+	</ul>
+	<p>Bien que non planifiée au départ, la <strong>maîtrise du Player State et des Data Assets</strong> est devenue un
+		apprentissage central, structurant la réflexion architecturale finale.</p>
+
+	<hr>
+
+	<h2 id="points-de-reussite">3. Points de réussite</h2>
+	<p>L’approche méthodique du refactoring a conduit à une architecture claire et efficace, exclusivement en
+		Blueprints. Les classes de base d’Unreal (<strong>GameMode</strong>, <strong>GameState</strong>,
+		<strong>PlayerState</strong>, <strong>PlayerController</strong>, <strong>Character</strong>) ont été employées
+		selon leurs rôles respectifs, garantissant une séparation nette des responsabilités et un comportement stable du
+		multijoueur 2P.
+	</p>
+	<p>Les fonctionnalités essentielles — déplacements latéraux, <code>LaunchCharacter</code>, <code>ApplyDamage</code>,
+		gestion de la santé et des stocks, détection des vainqueurs — ont fonctionné de manière stable dès leur première
+		intégration, réduisant considérablement le temps de débogage ultérieur. Des sessions de tests régulières ont
+		permis d’affiner le gameplay : augmentation de l’<strong>Air Control</strong>, réduction du <em>lag</em>
+		post-attaque et synchronisation plus fluide de la rotation du joueur.</p>
+	<p>La gestion de version a reposé sur <strong>Git CLI</strong> avec publication sur <strong>GitHub</strong>, suivant
+		un modèle simple mais rigoureux : commits atomiques sur une seule branche <code>main</code>, documentation des
+		changements, et usage de <strong>Git Bash</strong>, <strong>Vim</strong>, <strong>PowerShell</strong> et
+		<strong>GH CLI</strong> pour un contrôle précis de l’environnement. Cette approche minimaliste a favorisé la
+		continuité et la stabilité du projet sans surcoût de gestion.
+	</p>
+	<p>Les choix techniques structurants incluaient :</p>
+	<ul>
+		<li>L’usage des <strong>Maps</strong> pour un accès et une modification plus efficaces des données ;</li>
+		<li>L’adoption de <strong>Widgets imbriqués</strong> pour la hiérarchisation de l’interface ;</li>
+		<li>L’utilisation des <strong>Event Dispatchers</strong> pour réduire les appels au Tick et améliorer la
+			performance ;</li>
+		<li>Le recours à des <strong>Anim Notifies</strong> et des <strong>Sockets</strong> pour la gestion fine des
+			interactions physiques.</li>
+	</ul>
+
+	<h3 id="exemples-de-refactorisation">Exemples de refactorisation</h3>
+	<p>Initialement, les données de santé et d’état du joueur étaient stockées dans le <strong>Character</strong>, ce
+		qui rendait leur synchronisation complexe lors des transitions de gameplay : accès depuis le Game Mode ou le
+		Widget Blueprint. Une refactorisation a déplacé ces informations dans le <strong>PlayerState</strong>,
+		permettant un accès cohérent via <code>GetGameState → GetPlayerArray</code> et une meilleure isolation des
+		responsabilités. Un autre changement a également simplifié la logique des widgets, désormais mis à jour
+		uniquement par événement plutôt que sur Tick continu.</p>
+
+	<hr>
+
+	<h2 id="problemes-rencontres">4. Problèmes rencontrés et résolutions</h2>
+	<p>Les principales difficultés ont concerné l’ordre d’initialisation des acteurs (widgets, PlayerState/Controller,
+		ID local -1) et la synchronisation entre les différentes phases du cycle de vie des objets Unreal. Ces problèmes
+		ont été résolus par l’ajout de délais contrôlés (<code>Delay Until Next Tick</code>) et la réorganisation des
+		appels dans le <strong>Begin Play</strong> ou le <strong>On Possess</strong> selon la logique d’initialisation.
+	</p>
+	<p>L’importation d’assets externes a présenté plusieurs difficultés techniques. Les modèles utilisés généraient
+		des incohérences d’échelle et de pivot au moment de l’intégration dans Unreal. Ces écarts
+		provoquaient des anomalies de position lors des animations.</p>
+	<p>Pour résoudre ce problème, un <strong>travail de normalisation des Offsets</strong> a été entrepris. L’objectif
+		était de garantir que tous les modèles importés respectent les mêmes repères spatiaux.</p>
+	<p>De plus, le téléchargement d’animations <em>Without Skin</em> depuis Mixamo, mais générées à partir du modèle par défaut
+		de la plateforme, entraînait un problème spécifique : lors de l’import dans Unreal, en sélectionnant le squelette
+		du Stickman comme squelette cible, le personnage devenait presque invisible. Pour corriger ce phénomène, il fallait
+		réimporter le modèle du Stickman dans Mixamo, puis télécharger l’animation appliquée à ce modèle avec le paramètre
+		<em>Without Skin</em> activé, garantissant ainsi la compatibilité complète entre le squelette et la géométrie.</p>
+	<p>Le module de sélection des personnages a représenté la tâche la plus longue : environ vingt jours étalés de
+		travail. Sa complexité tenait à la combinaison de Data Assets, Widgets imbriqués et gestion du focus
+		multi-joueurs.</p>
+	<p>Le prototype initial <em>Zero-G</em> s’appuyait sur une simulation physique complète avec ragdoll, mais il s’est révélé
+		peu viable en raison de contraintes techniques majeures. L’usage du mode <code>Simulate Physics</code>, nécessaire
+		pour activer le ragdoll, rendait impossible l’emploi de fonctions essentielles telles que
+		<code>AddMovementInput</code>, incompatibles avec cette configuration. Il fallait alors recourir à
+		<code>AddForce</code> appliqué directement sur le <em>Skeletal Mesh</em>, en limitant manuellement la force ajoutée
+		lorsque la vélocité devenait trop élevée. Cette approche, bien qu’expérimentale, impliquait de réimplémenter une
+		logique déjà prise en charge par le moteur, rendant la solution trop artisanale et difficilement extensible. Le pivot vers le
+		<em>Smash-like</em> a ainsi permis de recentrer l’apprentissage sur le gameplay et la logique moteur standard.</p>
+	<p>Les erreurs de conception identifiées concernaient :</p>
+	<ul>
+		<li>Une complexité d’interface évitable, qu’un framework comme <strong>CommonUI</strong> aurait pu simplifier ;
+		</li>
+		<li>La rotation du personnage, encore gérée via le Tick ;</li>
+		<li>Des collisions capsules à optimiser pour des interactions plus nettes.</li>
+	</ul>
+
+	<hr>
+
+	<h2 id="competences-acquises">5. Compétences acquises</h2>
+
+	<h3 id="competences-techniques">Compétences techniques</h3>
+	<ul>
+		<li><strong>Systèmes de mouvement</strong> : meilleure compréhension de <code>AirControl</code>,
+			<code>Jump</code>, <code>LaunchCharacter</code>, <code>ApplyDamage</code> et <code>AnyDamage</code> ;
+		</li>
+		<li><strong>Gestion de l’état</strong> : usage approfondi de PlayerState, GameState et PlayerController, et
+			compréhension de leur interconnexion ;</li>
+		<li><strong>Structure de données</strong> : utilisation de <strong>Maps</strong> et de <strong>Data
+				Assets</strong> pour une architecture plus souple et performante ;</li>
+		<li><strong>UI et événements</strong> : maîtrise des <strong>Event Dispatchers</strong>, optimisation du cycle
+			d’update des widgets, conception modulaire de l’UI ;</li>
+		<li><strong>Méthodologie logicielle</strong> : refactorisation progressive et réduction mesurée de la dette
+			technique.</li>
+	</ul>
+
+	<h3 id="competences-transversales">Compétences transversales</h3>
+	<ul>
+		<li><strong>Gestion du temps et des priorités</strong> : maintien du périmètre initial du One-Pager, renoncement
+			stratégique à certaines idées ambitieuses ;</li>
+		<li><strong>Esprit critique et autonomie</strong> : capacité à identifier les solutions les plus rationnelles et
+			à utiliser les outils du moteur plutôt que de les re-coder.</li>
+	</ul>
+
+	<hr>
+
+	<h2 id="perspectives-amelioration">6. Perspectives d’amélioration</h2>
+	<p>Les perspectives peuvent être structurées selon trois horizons :</p>
+
+	<h3 id="court-terme">Court terme</h3>
+	<ul>
+		<li>Optimisation du <strong>cœur du gameplay</strong> : ajustement du ressenti des coups, lag post-attaque,
+			gestion du knockback et du hitstop ;</li>
+		<li>Amélioration du <strong>HUD</strong> et du <strong>feedback visuel</strong> (effets, sons, impact frames) ;
+		</li>
+		<li>Correction du <strong>focus UI</strong> après <em>alt-tab</em>.</li>
+	</ul>
+
+	<h3 id="moyen-terme">Moyen terme</h3>
+	<ul>
+		<li>Introduction de mécaniques avancées : saisie, esquive, dash, bouclier, ledge grab, attaques directionnelles,
+			marche différenciée ;</li>
+		<li>Refonte de la <strong>caméra</strong> (dynamique) et enrichissement visuel des arènes ;</li>
+		<li>Révision des collisions capsules et de la rotation pour plus de précision.</li>
+	</ul>
+
+	<h3 id="long-terme">Long terme</h3>
+	<ul>
+		<li><strong>Internationalisation</strong> du jeu (localisation multilingue) pour renforcer la cohérence de
+			production et l’accessibilité.</li>
+	</ul>
+	<p>Avec deux mois supplémentaires, les efforts porteraient prioritairement sur l’amélioration du ressenti de combat,
+		la variété des coups et la solidité du HUD. Une publication sur <em>itch.io</em> demeure envisagée à des fins de
+		diffusion et de visibilité.</p>
+
+	<hr>
+
+	<h2 id="bilan">7. Bilan</h2>
+	<p>L’expérience confirme l’importance de l’ajustement du périmètre et de la priorisation des fonctionnalités. Les
+		objectifs révisés ont été atteints avec un haut degré de satisfaction, illustrant une véritable démarche agile.
+	</p>
+	<p>Le projet a renforcé une approche d’ingénierie solide : compréhension fine des systèmes internes d’Unreal,
+		anticipation des dépendances inter-classes et articulation entre ambition technique et faisabilité temporelle.
+	</p>
+	<p>Le développement total représente environ <strong>77 à 100 heures de travail effectif</strong>, soit une moyenne
+		de <strong>11 à 14 heures par semaine</strong> sur sept semaines, selon l’analyse des commits et l’estimation du
+		temps par itération.</p>
+	<p><strong>Synthèse personnelle</strong> : la réalisation intégrale du projet, menée sans collaboration directe, a
+		renforcé mon autonomie méthodologique et ma confiance technique. Les compétences acquises autour du multijoueur
+		local ouvrent également la voie à de futurs travaux sur la <strong>mise en réseau</strong>, notamment dans le
+		cadre d’un prototype FPS expérimental. </p>
+	<p><strong>Maxime</strong> : <em>Keep it simple, stupid</em> —
+		principe
+		dont la rigueur d’application s’avère essentielle dans toute production interactive à contrainte forte.</p>
+</body>
+</html>
