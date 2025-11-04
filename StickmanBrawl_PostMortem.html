@@ -14,17 +14,23 @@
 <body>
 	<!-- Titre principal + méta -->
 	<h1>Stickman Brawl — Post-mortem</h1>
-	<p><strong>Auteur :</strong> Antonin Claudel<br>
-		<strong>Période :</strong> septembre → octobre 2025
-	</p>
 
 	<!-- Plan interactif -->
 	<nav class="toc" aria-label="Table des matières">
 		<div class="toc-title">Plan</div>
 		<ol class="toc-list">
 			<li><a href="#informations-generales">Informations générales</a></li>
+			<ol class="toc-list">
+				<li><a href="#details-du-projet">Détails du projet</a></li>
+				<li><a href="#evolution-du-concept">Évolution du concept</a></li>
+			</ol>
 			<li><a href="#objectifs-initiaux">Objectifs initiaux</a></li>
 			<li><a href="#points-de-reussite">Points de réussite</a></li>
+			<ol class="toc-list">
+				<li><a href="#architecture-et-stabilite">Architecture et stabilité</a></li>
+				<li><a href="#choix-techniques-structurants">Choix techniques structurants</a></li>
+				<li><a href="#exemples-de-refactorisation">Exemples de refactorisation</a></li>
+			</ol>
 			<li><a href="#problemes-rencontres">Problèmes rencontrés et résolutions</a></li>
 			<li><a href="#competences-acquises">Compétences acquises</a></li>
 			<li><a href="#perspectives-amelioration">Perspectives d’amélioration</a></li>
@@ -35,18 +41,36 @@
 	<hr>
 
 	<h2 id="informations-generales">1. Informations générales</h2>
-	<ul class="info-list">
-		<li><strong>Titre du projet :</strong> <em>Stickman Brawl</em></li>
-		<li><strong>Nature du projet :</strong> jeu de combat local (2 joueurs) de type <em>Smash-like</em></li>
-		<li><strong>Moteur :</strong> Unreal Engine 5.6</li>
-		<li><strong>Technologies :</strong> intégralement développées en <strong>Blueprints</strong> (C++ seulement
-			exploré, puis écarté)</li>
-		<li><strong>Période de réalisation :</strong> du <strong>8 septembre 2025</strong> (prototype Zero-G) au
-			<strong>28 octobre 2025</strong>
-		</li>
-	</ul>
+	<h3 id="details-du-projet">1.1 Détails du projet</h3>
+	<table>
+		<tr>
+			<th>Titre du projet</th>
+			<td><em>Stickman Brawl</em></td>
+		</tr>
+		<tr>
+			<th>Auteur</th>
+			<td>Antonin Claudel</td>
+		</tr>
+		<tr>
+			<th>Période</th>
+			<td>Du <strong>8 septembre</strong> au <strong>28 octobre 2025</strong></td>
+		</tr>
+		<tr>
+			<th>Nature</th>
+			<td>Jeu de combat local (2 joueurs) de type <em>Smash-like</em></td>
+		</tr>
+		<tr>
+			<th>Moteur</th>
+			<td>Unreal Engine 5.6</td>
+		</tr>
+		<tr>
+			<th>Technologie</th>
+			<td>Intégralement <strong>Blueprints</strong></td>
+		</tr>
+	</table>
 
-	<h3 id="evolution-du-concept">Évolution du concept</h3>
+
+	<h3 id="evolution-du-concept">1.2 Évolution du concept</h3>
 	<p>Le projet est né d’une première expérimentation, <em>Stickman Zero-G</em>, centrée sur la simulation physique et
 		la gravité nulle. Cette orientation, rapidement abandonnée pour des raisons de faisabilité et de rendement
 		pédagogique, a conduit à un pivot conceptuel vers un <em>Smash-like</em> exploitant pleinement les systèmes
@@ -68,6 +92,8 @@
 	<hr>
 
 	<h2 id="objectifs-initiaux">2. Objectifs initiaux</h2>
+
+	<h3 id="objectif-principal">2.1 Objectif principal</h3>
 	<p>L’objectif principal consistait à produire, dans un cadre individuel, un <strong>prototype jouable et
 			stable</strong> démontrant une compréhension approfondie du moteur et un apprentissage concret, tout en
 		demeurant réalisable dans les délais impartis. Les intentions initiales portaient sur :</p>
@@ -75,12 +101,16 @@
 		<li>L’expérimentation des <strong>mécaniques de combat rapproché</strong> ;</li>
 		<li>La mise en œuvre d’un <strong>multijoueur local robuste</strong>.</li>
 	</ul>
+	
+	<h3 id="axes-apprentissage-emergents">2.2 Axes d’apprentissage émergents</h3>
 	<p>Bien que non planifiée au départ, la <strong>maîtrise du Player State et des Data Assets</strong> est devenue un
 		apprentissage central, structurant la réflexion architecturale finale.</p>
 
 	<hr>
 
 	<h2 id="points-de-reussite">3. Points de réussite</h2>
+
+	<h3 id="architecture-et-stabilite">3.1 Architecture et stabilité</h3>
 	<p>L’approche méthodique du refactoring a conduit à une architecture claire et efficace, exclusivement en
 		Blueprints. Les classes de base d’Unreal (<strong>GameMode</strong>, <strong>GameState</strong>,
 		<strong>PlayerState</strong>, <strong>PlayerController</strong>, <strong>Character</strong>) ont été employées
@@ -91,13 +121,16 @@
 		gestion de la santé et des stocks, détection des vainqueurs — ont fonctionné de manière stable dès leur première
 		intégration, réduisant considérablement le temps de débogage ultérieur. Des sessions de tests régulières ont
 		permis d’affiner le gameplay : augmentation de l’<strong>Air Control</strong>, réduction du <em>lag</em>
-		post-attaque et synchronisation plus fluide de la rotation du joueur.</p>
+		post-attaque et synchronisation plus fluide de la rotation du joueur.
+	</p>
 	<p>La gestion de version a reposé sur <strong>Git CLI</strong> avec publication sur <strong>GitHub</strong>, suivant
 		un modèle simple mais rigoureux : commits atomiques sur une seule branche <code>main</code>, documentation des
 		changements, et usage de <strong>Git Bash</strong>, <strong>Vim</strong>, <strong>PowerShell</strong> et
 		<strong>GH CLI</strong> pour un contrôle précis de l’environnement. Cette approche minimaliste a favorisé la
 		continuité et la stabilité du projet sans surcoût de gestion.
 	</p>
+
+	<h3 id="choix-techniques-structurants">3.2 Choix techniques structurants</h3>
 	<p>Les choix techniques structurants incluaient :</p>
 	<ul>
 		<li>L’usage des <strong>Maps</strong> pour un accès et une modification plus efficaces des données ;</li>
@@ -108,43 +141,65 @@
 			interactions physiques.</li>
 	</ul>
 
-	<h3 id="exemples-de-refactorisation">Exemples de refactorisation</h3>
+	<h3 id="exemples-de-refactorisation">3.3 Exemples de refactorisation</h3>
 	<p>Initialement, les données de santé et d’état du joueur étaient stockées dans le <strong>Character</strong>, ce
 		qui rendait leur synchronisation complexe lors des transitions de gameplay : accès depuis le Game Mode ou le
 		Widget Blueprint. Une refactorisation a déplacé ces informations dans le <strong>PlayerState</strong>,
 		permettant un accès cohérent via <code>GetGameState → GetPlayerArray</code> et une meilleure isolation des
 		responsabilités. Un autre changement a également simplifié la logique des widgets, désormais mis à jour
-		uniquement par événement plutôt que sur Tick continu.</p>
+		uniquement par événement plutôt que sur Tick continu.
+	</p>
 
 	<hr>
 
+
 	<h2 id="problemes-rencontres">4. Problèmes rencontrés et résolutions</h2>
+
+	<h3 id="initialisation-et-synchronisation">4.1 Initialisation et synchronisation</h3>
 	<p>Les principales difficultés ont concerné l’ordre d’initialisation des acteurs (widgets, PlayerState/Controller,
 		ID local -1) et la synchronisation entre les différentes phases du cycle de vie des objets Unreal. Ces problèmes
 		ont été résolus par l’ajout de délais contrôlés (<code>Delay Until Next Tick</code>) et la réorganisation des
 		appels dans le <strong>Begin Play</strong> ou le <strong>On Possess</strong> selon la logique d’initialisation.
 	</p>
+
+	<h3 id="importation-et-normalisation-des-assets">4.2 Importation et normalisation des assets</h3>
 	<p>L’importation d’assets externes a présenté plusieurs difficultés techniques. Les modèles utilisés généraient
 		des incohérences d’échelle et de pivot au moment de l’intégration dans Unreal. Ces écarts
 		provoquaient des anomalies de position lors des animations.</p>
 	<p>Pour résoudre ce problème, un <strong>travail de normalisation des Offsets</strong> a été entrepris. L’objectif
 		était de garantir que tous les modèles importés respectent les mêmes repères spatiaux.</p>
-	<p>De plus, le téléchargement d’animations <em>Without Skin</em> depuis Mixamo, mais générées à partir du modèle par défaut
-		de la plateforme, entraînait un problème spécifique : lors de l’import dans Unreal, en sélectionnant le squelette
-		du Stickman comme squelette cible, le personnage devenait presque invisible. Pour corriger ce phénomène, il fallait
-		réimporter le modèle du Stickman dans Mixamo, puis télécharger l’animation appliquée à ce modèle avec le paramètre
-		<em>Without Skin</em> activé, garantissant ainsi la compatibilité complète entre le squelette et la géométrie.</p>
+	<p>De plus, le téléchargement d’animations <em>Without Skin</em> depuis Mixamo, mais générées à partir du modèle par
+		défaut
+		de la plateforme, entraînait un problème spécifique : lors de l’import dans Unreal, en sélectionnant le
+		squelette
+		du Stickman comme squelette cible, le personnage devenait presque invisible. Pour corriger ce phénomène, il
+		fallait
+		réimporter le modèle du Stickman dans Mixamo, puis télécharger l’animation appliquée à ce modèle avec le
+		paramètre
+		<em>Without Skin</em> activé, garantissant ainsi la compatibilité complète entre le squelette et la géométrie.
+	</p>
+
+	<h3 id="module-de-selection">4.3 Conception du module de sélection</h3>
 	<p>Le module de sélection des personnages a représenté la tâche la plus longue : environ vingt jours étalés de
 		travail. Sa complexité tenait à la combinaison de Data Assets, Widgets imbriqués et gestion du focus
 		multi-joueurs.</p>
-	<p>Le prototype initial <em>Zero-G</em> s’appuyait sur une simulation physique complète avec ragdoll, mais il s’est révélé
-		peu viable en raison de contraintes techniques majeures. L’usage du mode <code>Simulate Physics</code>, nécessaire
+	
+	<h3 id="abandon-zero-g">4.4 Abandon du prototype Zero-G</h3>
+	<p>Le prototype initial <em>Zero-G</em> s’appuyait sur une simulation physique complète avec ragdoll, mais il s’est
+		révélé
+		peu viable en raison de contraintes techniques majeures. L’usage du mode <code>Simulate Physics</code>,
+		nécessaire
 		pour activer le ragdoll, rendait impossible l’emploi de fonctions essentielles telles que
 		<code>AddMovementInput</code>, incompatibles avec cette configuration. Il fallait alors recourir à
-		<code>AddForce</code> appliqué directement sur le <em>Skeletal Mesh</em>, en limitant manuellement la force ajoutée
+		<code>AddForce</code> appliqué directement sur le <em>Skeletal Mesh</em>, en limitant manuellement la force
+		ajoutée
 		lorsque la vélocité devenait trop élevée. Cette approche, bien qu’expérimentale, impliquait de réimplémenter une
-		logique déjà prise en charge par le moteur, rendant la solution trop artisanale et difficilement extensible. Le pivot vers le
-		<em>Smash-like</em> a ainsi permis de recentrer l’apprentissage sur le gameplay et la logique moteur standard.</p>
+		logique déjà prise en charge par le moteur, rendant la solution trop artisanale et difficilement extensible. Le
+		pivot vers le
+		<em>Smash-like</em> a ainsi permis de recentrer l’apprentissage sur le gameplay et la logique moteur standard.
+	</p>
+
+	<h3 id="erreurs-de-conception">4.5 Erreurs de conception</h3>
 	<p>Les erreurs de conception identifiées concernaient :</p>
 	<ul>
 		<li>Une complexité d’interface évitable, qu’un framework comme <strong>CommonUI</strong> aurait pu simplifier ;
@@ -231,4 +286,5 @@
 		principe
 		dont la rigueur d’application s’avère essentielle dans toute production interactive à contrainte forte.</p>
 </body>
+
 </html>

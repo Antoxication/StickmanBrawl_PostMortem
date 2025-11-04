@@ -27,7 +27,17 @@ async function exportPdf() {
     const fileUrl = 'file://' + path.resolve(HTML_PATH).replace(/\\/g, '/');
     await page.goto(fileUrl, { waitUntil: 'networkidle0' });
 
-    // Forcer A4 + marges + en-tête/pied si besoin
+    // Date du jour (français long, ex : "3 novembre 2025")
+    const today = new Date().toLocaleDateString('fr-FR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+
+    // Auteur
+    const author = 'Antonin Claudel';
+
+    // Génération PDF
     await page.pdf({
       path: path.resolve(OUT_PDF),
       format: 'Letter',
@@ -50,15 +60,21 @@ async function exportPdf() {
           font-family: 'Segoe UI', system-ui, sans-serif;
           font-size: 10px;
           width: 100%;
-          text-align: right;
           color: #444;
-          padding-right: 8mm;
+          padding: 0 8mm;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
         ">
-          Page <span class="pageNumber"></span>/<span class="totalPages"></span>
+          <div style="text-align: left;">${today}</div>
+          <div style="text-align: center;">${author}</div>
+          <div style="text-align: right;">
+            Page <span class="pageNumber"></span>/<span class="totalPages"></span>
+          </div>
         </div>`,
     });
-    await page.close();
 
+    await page.close();
     console.log(`→ PDF OK: ${path.resolve(OUT_PDF)}`);
   } catch (e) {
     console.error('✗ Échec export:', e.message);
