@@ -38,7 +38,7 @@ hr{ border:0; height:2px; border-bottom:2px solid var(--border); margin: 20px 0;
 h1, h2, h3{ font-weight: 600; line-height:1.25; margin: 0.2em 0 .6em; }
 h1{ font-size: 1.8rem; padding-bottom: .3em; border-bottom: 1px solid var(--border); }
 h2{ font-size: 1.45rem; }
-h3{ font-size: 1.15rem; }
+h3{ font-size: 1.15rem; margin-top: 10px; }
 
 /* Paragraphs & lists */
 p{ margin: .6em 0; }
@@ -77,7 +77,7 @@ table tr th {
 
 
 /* Code blocks */
-code{ 
+code{
   font-family: var(--font-mono);
   font-size: .95em;
   color: #C9AE75;
@@ -87,16 +87,12 @@ code{
 }
 
 /* TOC styles */
-.toc{ border:1px solid var(--border); padding:12px 16px; border-radius:8px; margin:12px 0 24px 0; }
+.toc{ border:1px solid var(--border); padding:12px 16px; border-radius:8px; margin:0 0 24px 0; }
 .toc-title{ font-weight:700; margin-bottom:6px; }
-.toc-list{ margin:0; padding-left:18px; }
+.toc-list{ margin:0; }
 .toc-list li{ margin:4px 0; }
 .toc a{ border-bottom: none; }
 @media print{ .toc{ break-inside: avoid; } }
-
-/* Avoid breaks just after headings */
-h1, h2, h3{ break-after: avoid; }
-h2 + p, h3 + p, h2 + ul, h2 + ol{ break-before: avoid; }
 
 /* =========================
    Print / Page Layout
@@ -105,7 +101,7 @@ h2 + p, h3 + p, h2 + ul, h2 + ol{ break-before: avoid; }
 /* Page size & margins */
 @page{
   size: letter;
-  margin: 18mm 16mm 20mm 16mm; /* top right bottom left */
+  margin: 22mm 16mm 20mm 16mm; /* top right bottom left */
 }
 
 /* Info list */
@@ -144,4 +140,56 @@ h2 + p, h3 + p, h2 + ul, h2 + ol{ break-before: avoid; }
   counter-reset: item;
   padding-left: 1.5em; /* indentation des sous-niveaux */
   margin-top: 3px;
+}
+
+.cover {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+
+  height: 90vh;
+  padding: 25mm 20mm 0 20mm;
+  font-family: "Segoe UI";
+  color: #111;
+
+  page-break-after: avoid;
+}
+
+/* Logo */
+.cover-logo {
+  width: 70mm;
+  margin-bottom: 25mm;
+}
+
+/* Titre principal */
+.cover h1 {
+  font-size: 2.2rem;
+  margin: 0 0 15mm 0;
+  font-weight: 600;
+}
+
+/* Auteur */
+.cover .author {
+  font-size: 1.1rem;
+  margin: 0 0 12mm 0;
+}
+
+/* Superviseur */
+.cover .supervisor {
+  font-size: 1.1rem;
+  margin: 0 0 12mm 0;
+}
+
+/* Programme et cours */
+.cover .program {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0 0 20mm 0;
+}
+
+.cover .session {
+  font-size: 1rem;
+  font-weight: 500;
 }
