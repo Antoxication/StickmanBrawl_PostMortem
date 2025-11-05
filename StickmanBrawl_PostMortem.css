@@ -36,7 +36,7 @@ hr{ border:0; height:2px; border-bottom:2px solid var(--border); margin: 20px 0;
 
 /* Headings */
 h1, h2, h3{ font-weight: 600; line-height:1.25; margin: 0.2em 0 .6em; }
-h1{ font-size: 1.8rem; padding-bottom: .3em; border-bottom: 1px solid var(--border); }
+h1{ font-size: 1.8rem; padding-bottom: .3em; }
 h2{ font-size: 1.45rem; }
 h3{ font-size: 1.15rem; margin-top: 10px; }
 
@@ -55,9 +55,7 @@ table {
 table tr th {
   text-align: left;
   font-weight: bold;
-  padding: 4px 10px 4px 0;
-  white-space: nowrap;
-  vertical-align: top;
+  padding: 4px 0 4px 0;
   border-bottom: 1px solid #ccc;
 }
 
@@ -89,10 +87,9 @@ code{
 /* TOC styles */
 .toc{ border:1px solid var(--border); padding:12px 16px; border-radius:8px; margin:0 0 24px 0; }
 .toc-title{ font-weight:700; margin-bottom:6px; }
-.toc-list{ margin:0; }
+.toc-list{ margin:0; padding-left: 0; }
 .toc-list li{ margin:4px 0; }
 .toc a{ border-bottom: none; }
-@media print{ .toc{ break-inside: avoid; } }
 
 /* =========================
    Print / Page Layout
@@ -104,16 +101,6 @@ code{
   margin: 22mm 16mm 20mm 16mm; /* top right bottom left */
 }
 
-/* Info list */
-.info-list {
-  list-style: none;
-  padding-left: 0;
-  margin: 0 0 1em 0;
-}
-.info-list li {
-  margin: 4px 0;
-}
-
 /* =========================
    TOC hierarchical numbering
    ========================= */
@@ -121,7 +108,6 @@ code{
 .toc-list {
   counter-reset: item;
   list-style: none;
-  padding-left: 0;
 }
 
 .toc-list li {
@@ -141,6 +127,10 @@ code{
   padding-left: 1.5em; /* indentation des sous-niveaux */
   margin-top: 3px;
 }
+
+/* =========================
+   Cover Page Styles
+   ========================= */
 
 .cover {
   display: flex;
@@ -170,25 +160,26 @@ code{
   font-weight: 600;
 }
 
-/* Auteur */
-.cover .author {
-  font-size: 1.1rem;
-  margin: 0 0 12mm 0;
-}
-
 /* Superviseur */
 .cover .supervisor {
   font-size: 1.1rem;
   margin: 0 0 12mm 0;
 }
 
-/* Programme et cours */
-.cover .program {
+/* Auteur */
+.cover .author {
+  font-size: 1.1rem;
+  margin: 0 0 12mm 0;
+}
+
+/* Cours et programme */
+.cover .course-program {
   font-size: 1rem;
   line-height: 1.5;
   margin: 0 0 20mm 0;
 }
 
+/* Session */
 .cover .session {
   font-size: 1rem;
   font-weight: 500;
