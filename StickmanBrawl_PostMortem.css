@@ -35,8 +35,8 @@ a:hover{ text-decoration: none; border-bottom-color: rgba(0,0,0,.6); }
 hr{ border:0; height:2px; border-bottom:2px solid var(--border); margin: 20px 0; }
 
 /* Headings */
-h1, h2, h3{ font-weight: 600; line-height:1.25; margin: 1.2em 0 .6em; }
-h1{ font-size: 1.9rem; padding-bottom: .3em; border-bottom: 1px solid var(--border); }
+h1, h2, h3{ font-weight: 600; line-height:1.25; margin: 0.2em 0 .6em; }
+h1{ font-size: 1.8rem; padding-bottom: .3em; border-bottom: 1px solid var(--border); }
 h2{ font-size: 1.45rem; }
 h3{ font-size: 1.15rem; }
 
