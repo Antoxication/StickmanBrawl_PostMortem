@@ -3,7 +3,7 @@
    ========================= */
 @charset "UTF-8";
 
-:root{
+:root {
   --font-sans: "Segoe UI";
   --font-mono: "Consolas";
   --fg: #1a1a1a;
@@ -11,39 +11,37 @@
   --border: rgba(0,0,0,.18);
 }
 
-html, body{
-  padding:0;
-  margin:0;
+html {
   color: var(--fg);
   background: var(--bg);
   font-family: var(--font-sans);
   font-size: 14px;
   line-height: 1.55;
-  word-wrap: break-word;
+}
+
+body {
+  margin: 0;
 }
 
 /* A little breathing room for screen */
-body{
+body {
   padding: 0 26px;
 }
 
 /* Links */
-a{ text-decoration: none; color: inherit; border-bottom: 1px solid rgba(0,0,0,.25); }
-a:hover{ text-decoration: none; border-bottom-color: rgba(0,0,0,.6); }
+a { text-decoration: none; color: inherit; }
 
-/* Horizontal rules */
-hr{ border:0; height:2px; border-bottom:2px solid var(--border); margin: 20px 0; }
 
 /* Headings */
-h1, h2, h3{ font-weight: 600; line-height:1.25; margin: 0.2em 0 .6em; }
-h1{ font-size: 1.8rem; padding-bottom: .3em; }
-h2{ font-size: 1.45rem; }
-h3{ font-size: 1.15rem; margin-top: 10px; }
+h1, h2, h3 { font-weight: 600; line-height:1.25; margin: 1.2em 0 .6em; }
+h1 { font-size: 1.8rem; padding-bottom: .3em; }
+h2 { font-size: 1.45rem; }
+h3 { font-size: 1.15rem; margin-top: 10px; }
 
 /* Paragraphs & lists */
-p{ margin: .6em 0; }
-ul, ol{ padding-left: 1.25em; margin: .4em 0 .8em; }
-li{ margin: .25em 0; }
+p { margin: .6em 0; }
+ul, ol { padding-left: 1.25em; margin: .4em 0 .8em; }
+li { margin: .25em 0; }
 
 table {
   border-collapse: collapse;
@@ -57,6 +55,7 @@ table tr th {
   font-weight: bold;
   padding: 4px 0 4px 0;
   border-bottom: 1px solid #ccc;
+  color: #222;
 }
 
 table tr td {
@@ -69,34 +68,27 @@ table tr:last-child td {
   border-bottom: none; /* pas de ligne après la dernière */
 }
 
-table tr th {
-  color: #222;
-}
-
-
 /* Code blocks */
-code{
+code {
   font-family: var(--font-mono);
   font-size: .95em;
   color: #C9AE75;
   background: rgba(0,0,0,.04);
   padding: 0 .25em;
-  border-radius: 3px;
 }
 
 /* TOC styles */
-.toc{ border:1px solid var(--border); padding:12px 16px; border-radius:8px; margin:0 0 24px 0; }
-.toc-title{ font-weight:700; margin-bottom:6px; }
-.toc-list{ margin:0; padding-left: 0; }
-.toc-list li{ margin:4px 0; }
-.toc a{ border-bottom: none; }
+.toc { border: 1px solid var(--border); padding: 12px 16px; border-radius: 8px; margin: 0 0 24px 0; }
+.toc-title { font-weight: 700; margin-bottom: 6px; }
+.toc-list { margin: 0; padding-left: 0; }
+.toc-list li { margin: 4px 0; }
 
 /* =========================
    Print / Page Layout
    ========================= */
 
 /* Page size & margins */
-@page{
+@page {
   size: letter;
   margin: 22mm 16mm 20mm 16mm; /* top right bottom left */
 }
@@ -141,19 +133,18 @@ code{
 
   height: 90vh;
   padding: 25mm 20mm 0 20mm;
-  font-family: "Segoe UI";
   color: #111;
 
   page-break-after: avoid;
 }
 
 /* Logo */
-.cover-logo {
+.cover .logo {
   width: 70mm;
   margin-bottom: 25mm;
 }
 
-/* Titre principal */
+/* Titre */
 .cover h1 {
   font-size: 2.2rem;
   margin: 0 0 15mm 0;

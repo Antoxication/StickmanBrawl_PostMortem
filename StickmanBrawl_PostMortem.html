@@ -12,7 +12,7 @@
 
 <body>
 	<div class="cover">
-		<img src="Logo_UQAC.png" alt="Logo UQAC" class="cover-logo" />
+		<img src="Logo_UQAC.png" alt="Logo UQAC" class="logo" />
 
 		<h1>Stickman Brawl — Post-mortem</h1>
 
@@ -31,7 +31,9 @@
 			1537 — Maîtrise en informatique (jeux vidéo)<br>
 		</p>
 
-		<p class="session">Automne 2025</p>
+		<p class="session">
+			Automne 2025
+		</p>
 	</div>
 
 	<!-- Plan interactif -->
@@ -86,8 +88,6 @@
 		</ol>
 	</nav>
 
-	<hr>
-
 	<h2 id="informations-generales">1. Informations générales</h2>
 
 	<h3 id="details-du-projet">1.1 Détails du projet</h3>
@@ -102,7 +102,7 @@
 		</tr>
 		<tr>
 			<th>Période</th>
-			<td>Du <strong>8 septembre</strong> au <strong>4 novembre 2025</strong></td>
+			<td>Du <strong>8 septembre</strong> au <strong>5 novembre 2025</strong></td>
 		</tr>
 		<tr>
 			<th>Nature</th>
@@ -118,7 +118,6 @@
 		</tr>
 	</table>
 
-
 	<h3 id="evolution-du-concept">1.2 Évolution du concept</h3>
 	<p>Le projet est né d’une première expérimentation, <em>Stickman Zero-G</em>, centrée sur la simulation physique et
 		la gravité nulle. Cette orientation, rapidement abandonnée pour des raisons de faisabilité et de rendement
@@ -126,49 +125,48 @@
 		internes du moteur (notamment <code>LaunchCharacter</code>, <code>ApplyDamage</code>, <code>Jump</code> et
 		<code>AddMovementInput</code>).
 	</p>
-	<p>Les principales décisions de cadrage ont consisté à :</p>
-	<ul>
-		<li>Substituer la <strong>caméra dynamique</strong> par une <strong>caméra latérale fixe</strong>, réduisant la
-			complexité d’intégration ;</li>
-		<li>Redéfinir la condition de <em>KO</em> : abandon du modèle d’éjection au profit d’une élimination à
-			<strong>santé nulle</strong>, formalisée dans la version 2.1 du One-Pager ;
-		</li>
-		<li>Restreindre le périmètre à un <strong>multijoueur local à deux joueurs fixes</strong>, l’ajout ou le retrait
-			dynamique via C++ (détection des manettes) ayant été jugé non prioritaire dans la contrainte temporelle.
-		</li>
-	</ul>
-
-	<hr>
+	<p>
+		Les principales décisions de cadrage ont consisté à :
+		<ul>
+			<li>Substituer la <strong>caméra dynamique</strong> par une <strong>caméra latérale fixe</strong>, réduisant la
+				complexité d’intégration ;</li>
+			<li>Redéfinir la condition de <em>KO</em> : abandon du modèle d’éjection au profit d’une élimination à
+				<strong>santé nulle</strong>, formalisée dans la version 2.1 du One-Pager ;</li>
+			<li>Restreindre le périmètre à un <strong>multijoueur local à deux joueurs fixes</strong>, l’ajout ou le retrait
+				dynamique via C++ (détection des manettes) ayant été jugé non prioritaire dans la contrainte temporelle.</li>
+		</ul>
+	</p>
 
 	<h2 id="objectifs-initiaux">2. Objectifs initiaux</h2>
 
 	<h3 id="objectif-principal">2.1 Objectif principal</h3>
-	<p>L’objectif principal consistait à produire, dans un cadre individuel, un <strong>prototype jouable et
+	<p>
+		L’objectif principal consistait à produire, dans un cadre individuel, un <strong>prototype jouable et
 		stable</strong> démontrant une compréhension approfondie du moteur et un apprentissage concret, tout en
 		demeurant réalisable dans les délais impartis. Les intentions initiales portaient sur :
+		<ul>
+			<li>L’expérimentation des <strong>mécaniques de combat rapproché</strong> ;</li>
+			<li>La mise en œuvre d’un <strong>multijoueur local robuste</strong>.</li>
+		</ul>
 	</p>
-	<ul>
-		<li>L’expérimentation des <strong>mécaniques de combat rapproché</strong> ;</li>
-		<li>La mise en œuvre d’un <strong>multijoueur local robuste</strong>.</li>
-	</ul>
 
 	<h3 id="axes-apprentissage-emergents">2.2 Axes d’apprentissage émergents</h3>
 	<p>Bien que non planifiée au départ, la <strong>maîtrise du Player State et des Data Assets</strong> est devenue un
 		apprentissage central, structurant la réflexion architecturale finale.
 	</p>
 
-	<hr>
-
 	<h2 id="points-de-reussite">3. Points de réussite</h2>
 
 	<h3 id="architecture-et-stabilite">3.1 Architecture et stabilité</h3>
-	<p>L’approche méthodique du refactoring a conduit à une architecture claire et efficace, exclusivement en
+	<p>
+		L’approche méthodique du refactoring a conduit à une architecture claire et efficace, exclusivement en
 		Blueprints. Les classes de base d’Unreal (<strong>GameMode</strong>, <strong>GameState</strong>,
 		<strong>PlayerState</strong>, <strong>PlayerController</strong>, <strong>Character</strong>) ont été employées
 		selon leurs rôles respectifs, garantissant une séparation nette des responsabilités et un comportement stable du
 		multijoueur 2P.
 	</p>
-	<p>Les fonctionnalités essentielles du combat rapproché — déplacements latéraux, <code>MultiSphereTraceforObjects</code>,
+	<p>
+		Les fonctionnalités essentielles du combat rapproché — déplacements latéraux, <code>MultiSphereTraceforObjects</code>,
 		<code>LaunchCharacter</code>, <code>ApplyDamage</code>, gestion de la santé et des stocks,
 		détection du vainqueur — ont fonctionné de manière stable dès leur première
 		intégration, évitant le débogage ultérieur. Des sessions de tests régulières ont
@@ -177,7 +175,8 @@
 		Ces fonctionnalités, rapidement validées, s’inscrivent pleinement dans les
 		objectifs d’apprentissage initiaux liés au combat rapproché.
 	</p>
-	<p>La gestion de version a reposé sur <strong>Git CLI</strong> avec publication sur <strong>GitHub</strong>, suivant
+	<p>
+		La gestion de version a reposé sur <strong>Git CLI</strong> avec publication sur <strong>GitHub</strong>, suivant
 		un modèle simple mais rigoureux : commits atomiques sur une seule branche <code>main</code>, documentation des
 		changements, et usage de <strong>Git Bash</strong>, <strong>Vim</strong>, <strong>PowerShell</strong> et
 		<strong>GH CLI</strong> pour un contrôle précis de l’environnement. Cette approche minimaliste a favorisé la
@@ -185,18 +184,21 @@
 	</p>
 
 	<h3 id="choix-techniques-structurants">3.2 Choix techniques structurants</h3>
-	<p>Les choix techniques structurants incluaient :</p>
-	<ul>
-		<li>L’usage des <strong>Maps</strong> pour un accès et une modification plus efficaces des données ;</li>
-		<li>L’adoption de <strong>Widgets imbriqués</strong> pour la hiérarchisation de l’interface ;</li>
-		<li>L’utilisation des <strong>Event Dispatchers</strong> pour réduire les appels au Tick et améliorer la
-			performance ;</li>
-		<li>Le recours à des <strong>Anim Notifies</strong> et des <strong>Sockets</strong> pour la gestion fine des
-			interactions physiques.</li>
-	</ul>
+	<p>
+		Les choix techniques structurants incluaient :
+		<ul>
+			<li>L’usage des <strong>Maps</strong> pour un accès et une modification plus efficaces des données ;</li>
+			<li>L’adoption de <strong>Widgets imbriqués</strong> pour la hiérarchisation de l’interface ;</li>
+			<li>L’utilisation des <strong>Event Dispatchers</strong> pour réduire les appels au Tick et améliorer la
+				performance ;</li>
+			<li>Le recours à des <strong>Anim Notifies</strong> et des <strong>Sockets</strong> pour la gestion fine des
+				interactions physiques.</li>
+		</ul>
+	</p>
 
 	<h3 id="exemples-de-refactorisation">3.3 Exemples de refactorisation</h3>
-	<p>Initialement, les données de santé et d’état du joueur étaient stockées dans le <strong>Character</strong>, ce
+	<p>
+		Initialement, les données de santé et d’état du joueur étaient stockées dans le <strong>Character</strong>, ce
 		qui rendait leur synchronisation complexe lors des transitions de gameplay : accès depuis le Game Mode ou le
 		Widget Blueprint. Une refactorisation a déplacé ces informations dans le <strong>PlayerState</strong>,
 		permettant un accès cohérent via <code>GetGameState → GetPlayerArray</code> et une meilleure isolation des
@@ -205,7 +207,8 @@
 	</p>
 
 	<h3 id="selection-couleur-personnage">3.4 Sélection de la couleur du personnage</h3>
-	<p>La sélection de la couleur du personnage a constitué la tâche la plus exigeante du projet, mobilisant environ
+	<p>
+		La sélection de la couleur du personnage a constitué la tâche la plus exigeante du projet, mobilisant environ
 		vingt jours de travail. Sa conception a reposé sur la combinaison de <strong>Data Assets</strong>,
 		de <strong>Widgets imbriqués</strong> et d’une gestion fine du <strong>focus multi-joueurs</strong>.
 		Ce travail a abouti à un système robuste et réutilisable, offrant une base solide pour une future extension
@@ -213,32 +216,30 @@
 	</p>
 
 	<h3 id="multijoueur-local">3.5 Multijoueur local</h3>
-	<p>La mise en œuvre du <strong>multijoueur local</strong> représente une réussite majeure du projet,
+	<p>
+		La mise en œuvre du <strong>multijoueur local</strong> représente une réussite majeure du projet,
 		atteignant pleinement l’un des deux objectifs d’apprentissage fixés au départ.
 		Dès l'écran de sélection de la couleur du personnage, le moteur crée un deuxième joueur via la fonction
 		<code>Create Local Player</code>. Les joueurs sont référencés dans le tableau des <strong>Local Players</strong> de la
 		<strong>Game Instance</strong>. Ils sont ensuite instanciés dans tous les niveaux, y compris
 		<em>Brawl</em>, à partir de ces données, garantissant une initialisation cohérente et sans duplication.
 	</p>
-
 	<p>
 		Le système d’Unreal gère automatiquement l’assignation des manettes en fonction de la position des joueurs
 		dans ce tableau, ce qui a permis d’obtenir un comportement plug-and-play immédiat sans code supplémentaire.
 		La seule configuration nécessaire a consisté à <strong>désactiver le split-screen</strong> dans les paramètres du moteur.
 	</p>
-
 	<p>
 		Ce résultat, obtenu exclusivement en <strong>Blueprints</strong>, démontre une compréhension approfondie
 		de la hiérarchie interne <em>Player Controller → Local Player → Game Instance → Game Mode</em>
 		et la capacité à tirer parti des fonctionnalités natives du moteur plutôt que de les contourner.
 	</p>
 
-	<hr>
-
 	<h2 id="problemes-rencontres">4. Problèmes rencontrés et résolutions</h2>
 
 	<h3 id="initialisation-et-synchronisation">4.1 Initialisation et synchronisation</h3>
-	<p>Les principales difficultés ont concerné l’ordre d’initialisation des acteurs (widgets, PlayerState/Controller,
+	<p>
+		Les principales difficultés ont concerné l’ordre d’initialisation des acteurs (widgets, PlayerState/Controller,
 		ID local -1) et la synchronisation entre les différentes phases du cycle de vie des objets Unreal. Ces problèmes
 		ont été résolus par l’ajout de délais contrôlés (<code>Delay Until Next Tick</code>) et la réorganisation des
 		appels dans le <strong>Begin Play</strong> ou le <strong>On Possess</strong> selon la logique d’initialisation.
@@ -249,10 +250,12 @@
 		des incohérences d’échelle et de pivot au moment de l’intégration dans Unreal. Ces écarts
 		provoquaient des anomalies de position lors des animations.
 	</p>
-	<p>Pour résoudre ce problème, un <strong>travail de normalisation des Offsets</strong> a été entrepris. L’objectif
+	<p>
+		Pour résoudre ce problème, un <strong>travail de normalisation des Offsets</strong> a été entrepris. L’objectif
 		était de garantir que tous les modèles importés respectent les mêmes repères spatiaux.
 	</p>
-	<p>De plus, le téléchargement d’animations <em>Without Skin</em> depuis Mixamo, mais générées à partir du modèle par
+	<p>
+		De plus, le téléchargement d’animations <em>Without Skin</em> depuis Mixamo, mais générées à partir du modèle par
 		défaut de la plateforme, entraînait un problème spécifique : lors de l’import dans Unreal, en sélectionnant le
 		squelette du Stickman comme squelette cible, le personnage devenait presque invisible. Pour corriger ce phénomène, il
 		fallait réimporter le modèle du Stickman dans Mixamo, le rigger à nouveau, puis télécharger l’animation appliquée à ce modèle avec le
@@ -260,7 +263,8 @@
 	</p>
 
 	<h3 id="abandon-zero-g">4.3 Abandon du prototype Zero-G</h3>
-	<p>Le prototype initial <em>Zero-G</em> s’appuyait sur une simulation physique complète avec ragdoll, mais il s’est
+	<p>
+		Le prototype initial <em>Zero-G</em> s’appuyait sur une simulation physique complète avec ragdoll, mais il s’est
 		révélé peu viable en raison de contraintes techniques majeures. L’usage du mode <code>Simulate Physics</code>,
 		nécessaire pour activer le ragdoll, rendait impossible l’emploi de fonctions essentielles telles que
 		<code>AddMovementInput</code>, incompatibles avec cette configuration. Il fallait alors recourir à
@@ -271,111 +275,121 @@
 	</p>
 
 	<h3 id="game-instance">4.4 Incident de configuration de la Game Instance</h3>
-	<p>Lors d’une refactorisation, le renommage du fichier <strong>Game Instance</strong> a entraîné une réinitialisation
+	<p>
+		Lors d’une refactorisation, le renommage du fichier <strong>Game Instance</strong> a entraîné une réinitialisation
 		automatique du paramètre <em>Game Instance Class</em> dans les paramètres du projet Unreal. Le moteur ne trouvait donc
 		plus la classe à exécuter au lancement, provoquant un démarrage incomplet du jeu et l’absence de certaines données
 		initialisées à partir de la Game Instance.
 	</p>
-
-	<p>Après diagnostic, la cause a été identifiée dans les <strong>Project Settings → Maps &amp; Modes</strong>,
+	<p>
+		Après diagnostic, la cause a été identifiée dans les <strong>Project Settings → Maps &amp; Modes</strong>,
 		où la référence de classe avait été perdue. La correction a consisté à <strong>réassigner la Game Instance Class
 		appropriée</strong> dans le projet. Cette expérience a souligné l’importance d’un contrôle de cohérence post-refactor
 		et d’une vérification systématique des références globales du moteur après tout renommage de fichiers Blueprint.
 	</p>
 
-	<hr>
-
 	<h2 id="competences-acquises">5. Compétences acquises</h2>
 
 	<h3 id="competences-techniques">5.1 Compétences techniques</h3>
-	<ul>
-		<li><strong>Systèmes de mouvement</strong> : meilleure compréhension de <code>AirControl</code>,
-			<code>Jump</code>, <code>LaunchCharacter</code>, <code>ApplyDamage</code> et <code>AnyDamage</code> ;</li>
-		<li><strong>Gestion de l’état</strong> : usage approfondi de PlayerState, GameState et PlayerController, et
-			compréhension de leur interconnexion ;</li>
-		<li><strong>Structure de données</strong> : utilisation de <strong>Maps</strong> et de <strong>Data
-				Assets</strong> pour une architecture plus souple et performante ;</li>
-		<li><strong>UI et événements</strong> : maîtrise des <strong>Event Dispatchers</strong>, optimisation du cycle
-			d’update des widgets, conception modulaire de l’UI ;</li>
-		<li><strong>Méthodologie logicielle</strong> : refactorisation progressive et réduction mesurée de la dette
-			technique.</li>
-	</ul>
+	<p>
+		<ul>
+			<li><strong>Systèmes de mouvement</strong> : meilleure compréhension de <code>AirControl</code>,
+				<code>Jump</code>, <code>LaunchCharacter</code>, <code>ApplyDamage</code> et <code>AnyDamage</code> ;</li>
+			<li><strong>Gestion de l’état</strong> : usage approfondi de PlayerState, GameState et PlayerController, et
+				compréhension de leur interconnexion ;</li>
+			<li><strong>Structure de données</strong> : utilisation de <strong>Maps</strong> et de <strong>Data
+					Assets</strong> pour une architecture plus souple et performante ;</li>
+			<li><strong>UI et événements</strong> : maîtrise des <strong>Event Dispatchers</strong>, optimisation du cycle
+				d’update des widgets, conception modulaire de l’UI ;</li>
+			<li><strong>Méthodologie logicielle</strong> : refactorisation progressive et réduction mesurée de la dette
+				technique.</li>
+		</ul>
+	</p>
 
 	<h3 id="competences-transversales">5.2 Compétences transversales</h3>
-	<ul>
-		<li><strong>Gestion du temps et des priorités</strong> : maintien du périmètre initial du One-Pager, renoncement
-			stratégique à certaines idées ambitieuses ;</li>
-		<li><strong>Esprit critique et autonomie</strong> : capacité à identifier les solutions les plus rationnelles et
-			à utiliser les outils du moteur plutôt que de les re-coder.</li>
-	</ul>
-
-	<hr>
+	<p>
+		<ul>
+			<li><strong>Gestion du temps et des priorités</strong> : maintien du périmètre initial du One-Pager, renoncement
+				stratégique à certaines idées ambitieuses ;</li>
+			<li><strong>Esprit critique et autonomie</strong> : capacité à identifier les solutions les plus rationnelles et
+				à utiliser les outils du moteur plutôt que de les re-coder.</li>
+		</ul>
+	</p>
 
 	<h2 id="perspectives-amelioration">6. Perspectives d’amélioration</h2>
 
-	<p>Les perspectives peuvent être structurées selon trois horizons :</p>
+	<p>
+		Les perspectives peuvent être structurées selon trois horizons :
+	</p>
 
 	<h3 id="court-terme">6.1 Court terme</h3>
-	<ul>
-		<li>Optimisation du <strong>cœur du gameplay</strong> : ajustement du ressenti des coups, lag post-attaque,
-			gestion du knockback et du hitstop ;</li>
-		<li>Amélioration du <strong>HUD</strong> et du <strong>feedback visuel</strong> (effets, sons, impact frames) ;</li>
-		<li>Correction du <strong>focus UI</strong> après <em>alt-tab</em>.</li>
-	</ul>
+	<p>
+		<ul>
+			<li>Optimisation du <strong>cœur du gameplay</strong> : ajustement du ressenti des coups, lag post-attaque,
+				gestion du knockback et du hitstop ;</li>
+			<li>Amélioration du <strong>HUD</strong> et du <strong>feedback visuel</strong> (effets, sons, impact frames) ;</li>
+			<li>Correction du <strong>focus UI</strong> après <em>alt-tab</em>.</li>
+		</ul>
+	</p>
 
 	<h3 id="moyen-terme">6.2 Moyen terme</h3>
-	<ul>
-		<li>Introduction de mécaniques avancées : saisie, esquive, dash, bouclier, ledge grab, attaques directionnelles,
-			marche différenciée ;</li>
-		<li>Refonte de la <strong>caméra</strong> (dynamique) et enrichissement visuel des arènes ;</li>
-		<li>Révision des collisions capsules et de la rotation pour plus de précision.</li>
-	</ul>
+	<p>
+		<ul>
+			<li>Introduction de mécaniques avancées : saisie, esquive, dash, bouclier, ledge grab, attaques directionnelles,
+				marche différenciée ;</li>
+			<li>Refonte de la <strong>caméra</strong> (dynamique) et enrichissement visuel des arènes ;</li>
+			<li>Révision des collisions capsules et de la rotation pour plus de précision.</li>
+		</ul>
+	</p>
 
 	<h3 id="long-terme">6.3 Long terme</h3>
-	<ul>
-		<li><strong>Internationalisation</strong> du jeu (localisation multilingue) pour renforcer la cohérence de
-			production et l’accessibilité.</li>
-	</ul>
+	<p>
+		<ul>
+			<li><strong>Internationalisation</strong> du jeu (localisation multilingue) pour renforcer la cohérence de
+				production et l’accessibilité.</li>
+		</ul>
+	</p>
 	<p>Avec deux mois supplémentaires, les efforts porteraient prioritairement sur l’amélioration du ressenti de combat,
 		la variété des coups et la solidité du HUD. Une publication sur <em>itch.io</em> demeure envisagée à des fins de
 		diffusion et de visibilité.
 	</p>
 
-	<hr>
-
 	<h2 id="refaire-autrement">7. Ce que je referais différemment</h2>
 
 	<h3 id="approche-modulaire">7.1 Approche modulaire</h3>
-	<p>Si c’était à refaire, j’adopterais plus tôt une <strong>approche modulaire</strong> dans la conception des
+	<p>
+		Si c’était à refaire, j’adopterais plus tôt une <strong>approche modulaire</strong> dans la conception des
 		interfaces, notamment en privilégiant l’imbrication de <em>Widgets</em> plutôt que leur duplication. Cette méthode aurait
 		simplifié la maintenance du <strong>HUD</strong> lors de l'introduction des couleurs et facilité l’évolution du projet à moyen terme.
 	</p>
 
 	<h3 id="fonctions-utilitaires-reutilisables">7.2 Fonctions utilitaires réutilisables</h3>
-	<p>Je mettrais également en place dès le départ des <strong>fonctions utilitaires réutilisables</strong>, afin
+	<p>
+		Je mettrais également en place dès le départ des <strong>fonctions utilitaires réutilisables</strong>, afin
 		d’éviter la redondance de code et d’améliorer la clarté de la logique globale. Cette pratique aurait permis de mieux
 		isoler les comportements communs et d’accélérer les itérations.
 	</p>
 
 	<h3 id="meilleure-gestion-des-evenements-et-de-l-ui">7.3 Meilleure gestion des événements et de l’UI</h3>
-	<p>Par ailleurs, je réfléchirais dès la conception à des <strong>alternatives aux assignations (binds)</strong>
+	<p>
+		Par ailleurs, je réfléchirais dès la conception à des <strong>alternatives aux assignations (binds)</strong>
 		des éléments de l’interface. L’utilisation d’une <strong>initialisation contrôlée</strong> et de
 		<strong>répartiteurs d’événements (Event Dispatchers)</strong> aurait réduit les appels
 		au <em>Tick</em> et amélioré la performance générale du projet dès le début.
 	</p>
 
 	<h3 id="integration-precoce-de-commonui">7.4 Intégration précoce de CommonUI</h3>
-	<p>Enfin, je testerais dès la conception des interfaces l’intégration du framework <strong>CommonUI</strong> afin d’évaluer sa pertinence
+	<p>
+		Enfin, je testerais dès la conception des interfaces l’intégration du framework <strong>CommonUI</strong> afin d’évaluer sa pertinence
 		pour la gestion des menus et des interfaces dynamiques via la manette. Ce choix, s’il s’avérait adapté, permettrait de renforcer la
 		cohérence structurelle et la réutilisabilité de l’interface utilisateur.
 	</p>
 
-	<hr>
-
 	<h2 id="bilan">8. Bilan</h2>
 
 	<h3 id="resultats-et-enseignements">8.1 Résultats et enseignements</h3>
-	<p>L’expérience confirme l’importance de l’ajustement du périmètre et de la priorisation des fonctionnalités. Les
+	<p>
+		L’expérience confirme l’importance de l’ajustement du périmètre et de la priorisation des fonctionnalités. Les
 		objectifs révisés ont été atteints avec un haut degré de satisfaction, illustrant une véritable démarche agile.
 	</p>
 	<p>Le projet a renforcé une approche d’ingénierie solide : compréhension fine des systèmes internes d’Unreal,
@@ -383,21 +397,24 @@
 	</p>
 
 	<h3 id="analyse-de-l-investissement">8.2 Analyse de l’investissement</h3>
-	<p>Le développement total représente environ <strong>77 à 100 heures de travail effectif</strong>, soit une moyenne
+	<p>
+		Le développement total représente environ <strong>77 à 100 heures de travail effectif</strong>, soit une moyenne
 		de <strong>11 à 14 heures par semaine</strong> sur 8 semaines, selon l’analyse des commits et l’estimation du
 		temps par itération.
 	</p>
 
 	<h3 id="reflexion-personnelle">8.3 Réflexion personnelle</h3>
-	<p><strong>Synthèse personnelle</strong> : la réalisation intégrale du projet, menée sans collaboration directe, a
+	<p>
+		<strong>Synthèse personnelle</strong> : la réalisation intégrale du projet, menée sans collaboration directe, a
 		renforcé mon autonomie méthodologique et ma confiance technique. Les compétences acquises autour du multijoueur
 		local ouvrent également la voie à de futurs travaux sur la <strong>mise en réseau</strong>, notamment dans le
 		cadre d’un prototype FPS expérimental.
 	</p>
-
-	<p><strong>Maxime</strong> : <em>Keep it simple, stupid</em> —
+	<p>
+		<strong>Maxime</strong> : <em>Keep it simple, stupid</em> —
 		principe dont la rigueur d’application s’avère essentielle dans toute production interactive à contrainte forte.
 	</p>
+
 </body>
 
 </html>
