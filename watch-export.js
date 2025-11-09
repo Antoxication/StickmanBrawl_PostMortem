@@ -41,14 +41,14 @@ async function exportPdf() {
           width: 100%;
           color: #444;
           padding: 4mm 10mm 0 10mm;
-          display: flex;
-          justify-content: space-between;
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
           align-items: center;
         ">
           <div style="text-align: left;">
             8INF978 — Sujet spécial en jeux vidéo
           </div>
-          <div style="text-align: center; flex-grow: 1;">
+          <div style="text-align: center;">
             Stickman Brawl — Post-mortem
           </div>
           <div style="text-align: right;">
@@ -68,8 +68,8 @@ async function exportPdf() {
           width: 100%;
           color: #444;
           padding: 0 8mm;
-          display: flex;
-          justify-content: space-between;
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
           align-items: center;
         ">
           <div style="text-align: left;">
